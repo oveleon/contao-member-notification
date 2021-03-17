@@ -1,0 +1,19 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/modules.php" source-language="en">
+    <body>
+      <trans-unit id="MOD.memberNotification.0">
+        <source>Member notification</source>
+      </trans-unit>
+      <trans-unit id="MOD.memberNotification.1">
+        <source>Show member notifications</source>
+      </trans-unit>
+
+      <trans-unit id="FMD.memberNotification.0">
+        <source>Member notification</source>
+      </trans-unit>
+      <trans-unit id="FMD.memberNotification.1">
+        <source>Member notifications</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

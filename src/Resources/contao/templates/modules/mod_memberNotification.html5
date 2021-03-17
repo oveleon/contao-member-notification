@@ -1,0 +1,17 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+
+<?php if($this->hasNotifications): ?>
+<div class="notifications">
+    <?php foreach ($this->notifications as $notification): ?>
+        <div class="notification<?=($notification->read ? ' read' : '')?>">
+            <div><?=$notification->title?></div>
+            <div><?=$notification->teaser?></div>
+            <div><?=$notification->jumpTo?></div>
+        </div>
+    <?php endforeach; ?>
+</div>
+<?php endif; ?>
+
+<?php $this->endblock(); ?>
