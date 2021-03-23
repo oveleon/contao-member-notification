@@ -49,6 +49,8 @@ class ModuleMemberNotification extends Module
             return $objTemplate->parse();
         }
 
+        System::loadLanguageFile('tl_member_notification');
+
 		return parent::generate();
 	}
 
@@ -57,12 +59,11 @@ class ModuleMemberNotification extends Module
 	 */
 	protected function compile()
 	{
-	    $this->Template->login = true;
+        $this->Template->hasNotifications = false;
 
         if (!System::getContainer()->get('contao.security.token_checker')->hasFrontendUser())
         {
-            $this->Template->login = false;
-            $this->Template->message = 'Bitte loggen Sie sich ein um Ihre Benachrichtigungen zu sehen';
+            $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['loginRequired'];
             return;
         }
 
@@ -71,15 +72,16 @@ class ModuleMemberNotification extends Module
         switch($this->notificationMode)
         {
             case 'read':
-                $objNotifications = MemberNotificationModel::findBy(['read=1', 'pid='.$this->User->id], null);
+                $strRead = 1;
                 break;
-            case 'notread':
-                $objNotifications = MemberNotificationModel::findBy(['read=0', 'pid='.$this->User->id], null);
+            case 'unread':
+                $strRead = 0;
                 break;
             default:
-                $objNotifications = MemberNotificationModel::findBy(['pid='.$this->User->id], null);
+                $strRead = null;
         }
 
+        $objNotifications = MemberNotificationModel::findByMember($this->User->id, $strRead);
         $arrNotification = [];
 
         if(null !== $objNotifications)
@@ -98,7 +100,7 @@ class ModuleMemberNotification extends Module
         }
         else
         {
-            $this->Template->message = 'Es gibt keine neue Benachrichtigungen';
+            $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['loginRequired'];
         }
 
         $this->Template->hasNotifications = !!count($arrNotification);

@@ -12,7 +12,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['notificationMode'] = array
 (
     'exclude'                 => true,
     'inputType'               => 'select',
-    'options'                 => ['all', 'read', 'notread'],
+    'options'                 => ['all', 'read', 'unread'],
     'eval'                    => array('tl_class'=>'w50'),
     'sql'                     => "varchar(255) NOT NULL default ''"
 );

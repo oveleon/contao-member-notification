@@ -1,0 +1,35 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_member_notification.php" source-language="en">
+    <body>
+      <trans-unit id="tl_member_notification.title_legend">
+        <source>Title / Description</source>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.title.0">
+        <source>Title</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.title.1">
+        <source>Please enter a title here.</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.teaser.0">
+        <source>Teaser</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.teaser.1">
+        <source>Please enter a teaser text here.</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.jumpTo.0">
+        <source>Forwarding page</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.jumpTo.1">
+        <source>Please enter a redirect page here.</source>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.loginRequired">
+        <source>Please log in to see your notifications.</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.loginRequired">
+        <source>No new notifications available.</source>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

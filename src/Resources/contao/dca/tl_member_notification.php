@@ -91,6 +91,10 @@ $GLOBALS['TL_DCA']['tl_member_notification'] = array
         (
             'sql'                     => "int(10) unsigned NOT NULL default 0"
         ),
+        'readTstamp' => array
+        (
+            'sql'                     => "int(10) unsigned NOT NULL default 0"
+        ),
         'title' => array
         (
             'inputType'               => 'text',
@@ -115,12 +119,12 @@ $GLOBALS['TL_DCA']['tl_member_notification'] = array
             'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'dcaPicker'=>true, 'addWizardClass'=>false, 'tl_class'=>'w50'),
             'sql'                     => "varchar(255) NOT NULL default ''"
         ),
-        'read' => array
+        'invisible' => array
         (
             'exclude'                 => true,
             'filter'                  => true,
             'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50'),
+            'eval'                    => array('tl_class'=>'w50', 'doNotCopy'=>true),
             'sql'                     => "char(1) NOT NULL default ''"
         )
     )
@@ -172,7 +176,7 @@ class tl_member_notification extends Contao\Backend
         $strStatus = '<span style="display:inline-block;border-radius:10px;width:10px;height:10px;margin-right:10px;background-color:%s;"></span>';
         $color     = 'orange';
 
-        if ($row['read'])
+        if ($row['invisible'])
         {
             $color = 'green';
         }

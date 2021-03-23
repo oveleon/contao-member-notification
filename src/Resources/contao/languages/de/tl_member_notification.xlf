@@ -1,0 +1,44 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_member_notification.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_member_notification.title_legend">
+        <source>Title / Description</source>
+        <target>Titel / Beschreibung</target>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.title.0">
+        <source>Title</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.title.1">
+        <source>Please enter a title here.</source>
+        <target>Bitte geben Sie hier einen Titel ein.</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.teaser.0">
+        <source>Teaser</source>
+        <target>Teaser</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.teaser.1">
+        <source>Please enter a teaser text here.</source>
+        <target>Bitte geben Sie hier einen Teaser-Text an.</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.jumpTo.0">
+        <source>Forwarding page</source>
+        <target>Weiterleitungsseite</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.jumpTo.1">
+        <source>Please enter a redirect page here.</source>
+        <target>Geben Sie hier bitte eine Weiterleitungsseite an.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.loginRequired">
+        <source>Please log in to see your notifications.</source>
+        <target>Bitte melden Sie sich an, um Ihre Benachrichtigungen zu sehen.</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.loginRequired">
+        <source>No new notifications available.</source>
+        <target>Keine neuen Benachrichtigungen vorhanden.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
