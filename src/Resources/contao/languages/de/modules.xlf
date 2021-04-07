@@ -16,7 +16,7 @@
       </trans-unit>
       <trans-unit id="FMD.memberNotification.1">
         <source>Show member notification</source>
-        <target>Gibt Mitglied-Benachrichtigungen aus</target>
+        <target>Zeigt Mitglieder Benachrichtigungen an</target>
       </trans-unit>
     </body>
   </file>

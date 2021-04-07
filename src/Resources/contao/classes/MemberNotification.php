@@ -7,14 +7,16 @@
 
 namespace Oveleon\ContaoMemberNotification;
 
-use Contao\Frontend;
+use Contao\Backend;
 
 /**
  * Class Notification
  *
  * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-class MemberNotification extends Frontend
+class MemberNotification extends Backend
 {
-
+    public function loadTranslation(){
+        static::loadLanguageFile('tl_member_notification');
+    }
 }

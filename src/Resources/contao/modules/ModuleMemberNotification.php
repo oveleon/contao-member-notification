@@ -90,20 +90,24 @@ class ModuleMemberNotification extends Module
             {
                 $objNotification = new \stdClass();
 
+                $objNotification->id = $objNotifications->id;
                 $objNotification->title = $objNotifications->title;
                 $objNotification->teaser = $objNotifications->teaser;
                 $objNotification->jumpTo = $objNotifications->jumpTo;
-                $objNotification->read = $objNotifications->read;
+                $objNotification->read = $objNotifications->invisible;
 
                 $arrNotification[] = $objNotification;
             }
         }
         else
         {
-            $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['loginRequired'];
+            $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
         }
 
-        $this->Template->hasNotifications = !!count($arrNotification);
+
+        $this->Template->labelMarkAsRead = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
+        $this->Template->amount = count($arrNotification);
+        $this->Template->hasNotifications = !!$this->Template->amount;
         $this->Template->notifications = $arrNotification;
 	}
 }

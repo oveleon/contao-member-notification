@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA']['tl_member_notification'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{title_legend},title,teaser;jumpTo'
+        'default'                     => '{title_legend},title,teaser;jumpTo;invisible'
     ),
 
     // Fields
@@ -174,14 +174,17 @@ class tl_member_notification extends Contao\Backend
     public function listNotification($row)
     {
         $strStatus = '<span style="display:inline-block;border-radius:10px;width:10px;height:10px;margin-right:10px;background-color:%s;"></span>';
+
         $color     = 'orange';
+        $time      = null;
 
         if ($row['invisible'])
         {
             $color = 'green';
+            $time  = $row['readTstamp'];
         }
 
-        return '<div class="tl_content_left">' . sprintf($strStatus, $color) . $row['title'] . "</div>\n";
+        return '<div class="tl_content_left">' . sprintf($strStatus, $color) . $row['title'] . ($time ? '<span style="color:#999;padding-left:8px">' . date(\Contao\Config::get('datimFormat') ?: 'Y-m-d', $time) . '</span>' : '') . "</div>\n";
     }
 
 }

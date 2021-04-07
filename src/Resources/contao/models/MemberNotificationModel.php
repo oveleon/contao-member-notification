@@ -82,11 +82,11 @@ class MemberNotificationModel extends Model
     {
         $objNotification = new static();
 
+        $objNotification->tstamp = time();
         $objNotification->pid = $memberId;
         $objNotification->title = $title;
         $objNotification->teaser = $teaser;
         $objNotification->jumpTo = $jumpTo;
-        $objNotification->readTstamp = time();
 
         $objNotification->save();
     }

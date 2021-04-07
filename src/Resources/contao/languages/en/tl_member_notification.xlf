@@ -23,12 +23,28 @@
       <trans-unit id="tl_member_notification.jumpTo.1">
         <source>Please enter a redirect page here.</source>
       </trans-unit>
+      <trans-unit id="tl_member_notification.invisible.0">
+        <source>Read</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.invisible.1">
+        <source>This notification has been read by the member.</source>
+      </trans-unit>
 
       <trans-unit id="tl_member_notification.loginRequired">
         <source>Please log in to see your notifications.</source>
       </trans-unit>
-      <trans-unit id="tl_member_notification.loginRequired">
+      <trans-unit id="tl_member_notification.emptyMessage">
         <source>No new notifications available.</source>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.read">
+        <source>Read</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.unread">
+        <source>Unread</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.all">
+        <source>All</source>
       </trans-unit>
     </body>
   </file>

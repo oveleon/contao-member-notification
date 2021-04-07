@@ -1,0 +1,3 @@
+membernotification:
+    resource: '@ContaoMemberNotification/Controller'
+    type: annotation

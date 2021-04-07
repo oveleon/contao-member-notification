@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff version="1.1">
+  <file datatype="php" original="src/Resources/contao/languages/en/tl_module.php" source-language="en" target-language="de">
+    <body>
+      <trans-unit id="tl_module.notificationMode.0">
+        <source>List mode</source>
+        <target>Listen-Modus</target>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationMode.1">
+        <source>Show member notifications</source>
+        <target>Mitglieder Benachrichtigungen anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationCount.0">
+        <source>Show number of notification</source>
+        <target>Anzahl anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationCount.1">
+        <source>Outputs the number of notifications.</source>
+        <target>Gibt die Anzahl der Benachrichtigungen aus.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

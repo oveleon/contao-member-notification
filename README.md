@@ -1,6 +1,4 @@
 # Contao Member Notification
-👷 This extension is currently under construction
-
 This extension allows to add notifications for members to inform them about certain activities.
 
 ## Add notifications
@@ -19,3 +17,5 @@ For the output of the notifications a module is provided, which can output the n
 `read`: Only read notifications are displayed\
 `unread`: Only notifications that have not yet been read are displayed\
 `all`: All notifications are displayed
+
+> In the "unread" mode, an additional button is displayed to mark the message "as read".

@@ -30,14 +30,40 @@
         <source>Please enter a redirect page here.</source>
         <target>Geben Sie hier bitte eine Weiterleitungsseite an.</target>
       </trans-unit>
+      <trans-unit id="tl_member_notification.invisible.0">
+        <source>Read</source>
+        <target>Gelesen</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.invisible.1">
+        <source>This notification has been read by the member.</source>
+        <target>Diese Benachrichtigung wurde vom Mitglied gelesen.</target>
+      </trans-unit>
 
       <trans-unit id="tl_member_notification.loginRequired">
         <source>Please log in to see your notifications.</source>
         <target>Bitte melden Sie sich an, um Ihre Benachrichtigungen zu sehen.</target>
       </trans-unit>
-      <trans-unit id="tl_member_notification.loginRequired">
+      <trans-unit id="tl_member_notification.emptyMessage">
         <source>No new notifications available.</source>
         <target>Keine neuen Benachrichtigungen vorhanden.</target>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.read">
+        <source>Read</source>
+        <target>Gelesen</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.unread">
+        <source>Unread</source>
+        <target>Ungelesen</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.all">
+        <source>All</source>
+        <target>Alle</target>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.markAsRead">
+        <source>Mark as read</source>
+        <target>Als gelesen markieren</target>
       </trans-unit>
     </body>
   </file>
