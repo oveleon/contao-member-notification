@@ -81,7 +81,23 @@ class ModuleMemberNotification extends Module
                 $strRead = null;
         }
 
-        $objNotifications = MemberNotificationModel::findByMember($this->User->id, $strRead);
+        $objNotifications = null;
+
+        // HOOK: add custom parse logic
+        if (isset($GLOBALS['TL_HOOKS']['beforeParseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['beforeParseMemberNotification']))
+        {
+            foreach ($GLOBALS['TL_HOOKS']['beforeParseMemberNotification'] as $callback)
+            {
+                $this->import($callback[0]);
+                $objNotifications = $this->{$callback[0]}->{$callback[1]}($strRead, $this);
+            }
+        }
+
+        if(null === $objNotifications)
+        {
+            $objNotifications = MemberNotificationModel::findByMember($this->User->id, $strRead);
+        }
+
         $arrNotification = [];
 
         if(null !== $objNotifications)
@@ -109,5 +125,15 @@ class ModuleMemberNotification extends Module
         $this->Template->amount = count($arrNotification);
         $this->Template->hasNotifications = !!$this->Template->amount;
         $this->Template->notifications = $arrNotification;
+
+        // HOOK: add custom parse logic
+        if (isset($GLOBALS['TL_HOOKS']['parseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['parseMemberNotification']))
+        {
+            foreach ($GLOBALS['TL_HOOKS']['parseMemberNotification'] as $callback)
+            {
+                $this->import($callback[0]);
+                $this->{$callback[0]}->{$callback[1]}($objNotifications, $this);
+            }
+        }
 	}
 }

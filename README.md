@@ -19,3 +19,20 @@ For the output of the notifications a module is provided, which can output the n
 `all`: All notifications are displayed
 
 > In the "unread" mode, an additional button is displayed to mark the message "as read".
+
+## Hooks
+```php
+// Hook: beforeParseMemberNotification (Can be used to manipulate the data query)
+public function onBeforeParseMemberNotification(int $read, ModuleMemberNotification $module): MemberNotificationModel
+{
+    // Custom logic
+}
+```
+
+```php
+// Hook: parseMemberNotification (Can be used to change the template output)
+public function onParseMemberNotification(MemberNotificationModel $objNotifications, ModuleMemberNotification $module): void
+{
+    // Custom logic
+}
+```
