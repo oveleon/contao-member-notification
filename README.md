@@ -23,7 +23,7 @@ For the output of the notifications a module is provided, which can output the n
 ## Hooks
 ```php
 // Hook: beforeParseMemberNotification (Can be used to manipulate the data query)
-public function onBeforeParseMemberNotification(int $read, ModuleMemberNotification $module): MemberNotificationModel
+public function onBeforeParseMemberNotification(int $read, ModuleMemberNotification $module): ?MemberNotificationModel
 {
     // Custom logic
 }
