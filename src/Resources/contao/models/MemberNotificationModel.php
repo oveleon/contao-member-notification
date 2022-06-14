@@ -75,7 +75,7 @@ class MemberNotificationModel extends Model
             return static::findBy(['pid='.$memberId], null);
         }
 
-        return static::findBy(['invisible=?', 'pid=?'], [$read, $memberId], $arrOptions);
+        return static::findBy(['invisible=?', 'pid=?'], [($read === 0 ? '' : $read), $memberId], $arrOptions);
     }
 
     public static function add($memberId, $title, $teaser, $jumpTo='')
