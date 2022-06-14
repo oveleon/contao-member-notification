@@ -25,9 +25,25 @@ const MemberNotification = (function () {
                             moduleCounter.innerText = --notificationCount;
                         }
 
+                        // Custom event
+                        let event = new CustomEvent("mnc-count", {
+                            detail: {
+                                element: item,
+                                counter: moduleCounter,
+                                currentCount: notificationCount
+                            }
+                        });
+
+                        window.dispatchEvent(event);
+
                         if('mncMark' in this.dataset){
-                            item.classList.add('read');
-                            handle.parentNode.removeChild(handle);
+
+                            if('mncDeleteOnMark' in item.dataset) {
+                                item.parentNode.removeChild(item);
+                            }else{
+                                item.classList.add('read');
+                                handle.parentNode.removeChild(handle);
+                            }
                         }
 
                         read(ncId);

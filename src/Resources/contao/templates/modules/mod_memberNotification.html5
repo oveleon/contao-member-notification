@@ -13,30 +13,28 @@
 <?php endif; ?>
 
 <div class="notifications">
-    <?php if($this->hasNotifications): ?>
-        <?php foreach ($this->notifications as $notification): ?>
-            <div class="notification<?=($notification->read ? ' read' : '')?>" data-mnc-notification="<?=$notification->id?>">
+    <?php foreach ($this->notifications as $notification): ?>
+        <div class="notification<?=($notification->read ? ' read' : '')?>" data-mnc-notification="<?=$notification->id?>" data-mnc-delete-on-mark>
 
-            <?php if($notification->jumpTo): ?>
-                <a href="<?=$notification->jumpTo?>" data-mnc-read>
-            <?php endif; ?>
+        <?php if($notification->jumpTo): ?>
+            <a href="<?=$notification->jumpTo?>" data-mnc-read>
+        <?php endif; ?>
 
-                <span><?=$notification->title?></span>
-                <span><?=$notification->teaser?></span>
+            <span><?=$notification->title?></span>
+            <span><?=$notification->teaser?></span>
 
-            <?php if($notification->jumpTo): ?>
-                </a>
-            <?php endif; ?>
+        <?php if($notification->jumpTo): ?>
+            </a>
+        <?php endif; ?>
 
-            <?php if($this->notificationMode === 'unread'): ?>
-                <a href="javascript:void(0);" data-mnc-read data-mnc-mark title="<?=$this->labelMarkAsRead?>">&#10005;</a>
-            <?php endif; ?>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div class="message">
-            <?=$this->message?>
+        <?php if($this->notificationMode === 'unread'): ?>
+            <a href="javascript:void(0);" data-mnc-read data-mnc-mark title="<?=$this->labelMarkAsRead?>">&#10005;</a>
+        <?php endif; ?>
         </div>
-    <?php endif; ?>
+    <?php endforeach; ?>
+
+    <div class="message">
+        <?=$this->message?>
+    </div>
 </div>
 <?php $this->endblock(); ?>

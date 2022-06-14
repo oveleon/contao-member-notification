@@ -114,12 +114,8 @@ class ModuleMemberNotification extends Module
                 $arrNotification[] = $objNotification;
             }
         }
-        else
-        {
-            $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
-        }
 
-
+        $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
         $this->Template->labelMarkAsRead = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
         $this->Template->amount = count($arrNotification);
         $this->Template->hasNotifications = !!$this->Template->amount;
