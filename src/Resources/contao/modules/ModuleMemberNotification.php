@@ -9,6 +9,7 @@
 namespace Oveleon\ContaoMemberNotification;
 
 use Contao\BackendTemplate;
+use Contao\Config;
 use Contao\FrontendUser;
 use Contao\Module;
 use Contao\System;
@@ -106,6 +107,8 @@ class ModuleMemberNotification extends Module
                 $objNotification = new \stdClass();
 
                 $objNotification->id = $objNotifications->id;
+                $objNotification->tstamp = $objNotifications->tstamp;
+                $objNotification->dateTime = date(Config::get('datimFormat'), (int) $objNotifications->tstamp);
                 $objNotification->title = $objNotifications->title;
                 $objNotification->teaser = $objNotifications->teaser;
                 $objNotification->jumpTo = $objNotifications->jumpTo;

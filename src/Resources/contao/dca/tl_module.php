@@ -8,7 +8,7 @@
 
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = ['Oveleon\ContaoMemberNotification\MemberNotification', 'loadTranslation'];
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['memberNotification'] = '{title_legend},name,headline,type;{config_legend},notificationMode,notificationCount;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['memberNotification'] = '{title_legend},name,headline,type;{config_legend},notificationMode,notificationCount,notificationDateTime;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['notificationMode'] = array
 (
@@ -21,6 +21,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['notificationMode'] = array
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['notificationCount'] = array
+(
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'eval'                    => array('tl_class'=>'w50 m12'),
+    'sql'                     => "char(1) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['notificationDateTime'] = array
 (
     'exclude'                 => true,
     'inputType'               => 'checkbox',

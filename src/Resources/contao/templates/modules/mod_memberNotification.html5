@@ -20,6 +20,9 @@
             <a href="<?=$notification->jumpTo?>" data-mnc-read>
         <?php endif; ?>
 
+            <?php if($this->notificationDateTime): ?>
+                <span><?=$notification->dateTime?></span>
+            <?php endif; ?>
             <span><?=$notification->title?></span>
             <span><?=$notification->teaser?></span>
 

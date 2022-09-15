@@ -13,6 +13,12 @@
       <trans-unit id="tl_module.notificationCount.1">
         <source>Outputs the number of notifications.</source>
       </trans-unit>
+      <trans-unit id="tl_module.notificationDateTime.0">
+        <source>Show timestamp</source>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationDateTime.1">
+        <source>Show timestamp of the notification.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

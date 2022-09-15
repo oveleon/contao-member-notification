@@ -17,6 +17,14 @@
         <source>Outputs the number of notifications.</source>
         <target>Gibt die Anzahl der Benachrichtigungen aus.</target>
       </trans-unit>
+      <trans-unit id="tl_module.notificationDateTime.0">
+        <source>Show timestamp</source>
+        <target>Zeitstempel anzeigen</target>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationDateTime.1">
+        <source>Show timestamp of the notification.</source>
+        <target>Zeigt den Zeitstempel der Benachrichtigung an.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
