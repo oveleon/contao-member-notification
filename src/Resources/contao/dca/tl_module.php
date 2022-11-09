@@ -8,7 +8,7 @@
 
 $GLOBALS['TL_DCA']['tl_module']['config']['onload_callback'][] = ['Oveleon\ContaoMemberNotification\MemberNotification', 'loadTranslation'];
 
-$GLOBALS['TL_DCA']['tl_module']['palettes']['memberNotification'] = '{title_legend},name,headline,type;{config_legend},notificationMode,notificationCount,notificationDateTime;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['memberNotification'] = '{title_legend},name,headline,type;{config_legend},notificationMode,notificationSorting,notificationCount,notificationDateTime;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['notificationMode'] = array
 (
@@ -18,6 +18,16 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['notificationMode'] = array
     'eval'                    => array('tl_class'=>'w50'),
     'reference'               => &$GLOBALS['TL_LANG']['tl_member_notification'],
     'sql'                     => "varchar(255) NOT NULL default ''"
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['notificationSorting'] = array
+(
+    'exclude'                 => true,
+    'inputType'               => 'select',
+    'options'                 => ['ASC', 'DESC'],
+    'eval'                    => array('tl_class'=>'w50'),
+    'reference'               => &$GLOBALS['TL_LANG']['tl_member_notification'],
+    'sql'                     => "varchar(8) NOT NULL default ''"
 );
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['notificationCount'] = array

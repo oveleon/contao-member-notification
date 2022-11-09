@@ -72,7 +72,7 @@ class MemberNotificationModel extends Model
     {
         if(null === $read)
         {
-            return static::findBy(['pid=?'], [$memberId]);
+            return static::findBy(['pid=?'], [$memberId], $arrOptions);
         }
 
         return static::findBy(['invisible=?', 'pid=?'], [$read, $memberId], $arrOptions);

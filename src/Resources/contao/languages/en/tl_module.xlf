@@ -19,6 +19,12 @@
       <trans-unit id="tl_module.notificationDateTime.1">
         <source>Show timestamp of the notification.</source>
       </trans-unit>
+      <trans-unit id="tl_module.notificationSorting.0">
+        <source>Sorting</source>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationSorting.1">
+        <source>Define the output order here.</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

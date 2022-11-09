@@ -25,6 +25,14 @@
         <source>Show timestamp of the notification.</source>
         <target>Zeigt den Zeitstempel der Benachrichtigung an.</target>
       </trans-unit>
+      <trans-unit id="tl_module.notificationSorting.0">
+        <source>Sorting</source>
+        <target>Sortierung</target>
+      </trans-unit>
+      <trans-unit id="tl_module.notificationSorting.1">
+        <source>Define the output order here.</source>
+        <target>Definieren Sie hier die Reihenfolge der Ausgabe.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

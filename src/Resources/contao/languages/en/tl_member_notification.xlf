@@ -46,6 +46,17 @@
       <trans-unit id="tl_member_notification.all">
         <source>All</source>
       </trans-unit>
+
+      <trans-unit id="tl_member_notification.ASC">
+        <source>ascending</source>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.DESC">
+        <source>descending</source>
+      </trans-unit>
+
+      <trans-unit id="tl_member_notification.markAsRead">
+        <source>Mark as read</source>
+      </trans-unit>
     </body>
   </file>
 </xliff>

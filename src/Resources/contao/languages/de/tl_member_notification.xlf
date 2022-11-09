@@ -61,6 +61,15 @@
         <target>Alle</target>
       </trans-unit>
 
+      <trans-unit id="tl_member_notification.ASC">
+        <source>ascending</source>
+        <target>aufsteigend</target>
+      </trans-unit>
+      <trans-unit id="tl_member_notification.DESC">
+        <source>descending</source>
+        <target>absteigend</target>
+      </trans-unit>
+
       <trans-unit id="tl_member_notification.markAsRead">
         <source>Mark as read</source>
         <target>Als gelesen markieren</target>

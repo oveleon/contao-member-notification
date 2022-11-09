@@ -95,7 +95,7 @@ class ModuleMemberNotification extends Module
 
         if(null === $objNotifications)
         {
-            $objNotifications = MemberNotificationModel::findByMember($this->User->id, $strRead);
+            $objNotifications = MemberNotificationModel::findByMember($this->User->id, $strRead, ['order' => 'tstamp ' . $this->notificationSorting]);
         }
 
         $arrNotification = [];
