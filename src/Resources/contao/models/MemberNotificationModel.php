@@ -78,6 +78,25 @@ class MemberNotificationModel extends Model
         return static::findBy(['invisible=?', 'pid=?'], [$read, $memberId], $arrOptions);
     }
 
+    /**
+     * Counts notifications by member and read-status
+     *
+     * @param numeric $memberId
+     * @param null    $read
+     * @param array   $arrOptions An optional options array
+     *
+     * @return int|null The model or null if there is no notification
+     */
+    public static function countByMember($memberId, $read=null)
+    {
+        if (null === $read)
+        {
+            return static::countBy(['pid=?'], [$memberId]);
+        }
+
+        return static::countBy(['invisible=?', 'pid=?'], [$read, $memberId]);
+    }
+
     public static function add($memberId, $title, $teaser, $jumpTo='')
     {
         $objNotification = new static();

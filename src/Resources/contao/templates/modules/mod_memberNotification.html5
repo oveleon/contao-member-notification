@@ -40,4 +40,7 @@
         <?=$this->message?>
     </div>
 </div>
+
+<?= $this->pagination ?>
+
 <?php $this->endblock(); ?>
