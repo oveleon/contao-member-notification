@@ -63,6 +63,9 @@ class ModuleMemberNotification extends Module
 	 */
 	protected function compile()
 	{
+        $this->Template->message          = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
+        $this->Template->labelMarkAsRead  = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
+
         if (!System::getContainer()->get('contao.security.token_checker')->hasFrontendUser())
         {
             $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['loginRequired'];
@@ -182,9 +185,7 @@ class ModuleMemberNotification extends Module
             }
         }
 
-        $this->Template->message          = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
         $this->Template->amount           = count($arrNotification);
-        $this->Template->labelMarkAsRead  = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
         $this->Template->hasNotifications = !!$this->Template->amount;
         $this->Template->notifications    = $arrNotification;
 
