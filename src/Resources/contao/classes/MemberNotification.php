@@ -1,22 +1,18 @@
 <?php
-/*
- * This file is part of Oveleon ContaoMemberNotification.
- *
- * (c) https://www.oveleon.de/
- */
+
+declare(strict_types=1);
 
 namespace Oveleon\ContaoMemberNotification;
 
 use Contao\Backend;
 
 /**
- * Class Notification
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
+ * Class Notification.
  */
 class MemberNotification extends Backend
 {
-    public function loadTranslation(){
+    public function loadTranslation(): void
+    {
         static::loadLanguageFile('tl_member_notification');
     }
 }

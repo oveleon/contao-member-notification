@@ -1,42 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Oveleon\ContaoMemberNotification\Controller;
 
+use Contao\CoreBundle\Framework\ContaoFramework;
 use Oveleon\ContaoMemberNotification\MemberNotificationModel;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Contao\CoreBundle\Framework\ContaoFramework;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * ContentApiController provides all routes.
- *
- * @Route(defaults={"_scope" = "frontend"})
  */
+#[Route(defaults: [
+    '_scope' => 'frontend',
+])]
 class MemberNotificationController extends AbstractController
 {
-    /**
-     * @var ContaoFramework
-     */
-    private $framework;
-
-    public function __construct(ContaoFramework $framework)
-    {
-        $this->framework = $framework;
+    public function __construct(
+        private readonly ContaoFramework $framework,
+    ) {
     }
 
     /**
-     * Set a notification to read
-     *
-     * @Route("/membernotification/read/{id}", name="mnc_read")
-     *
-     * @param Request $request
-     * @param $id
-     *
-     * @return Response
+     * Set a notification to read.
      */
-    public function readAction(Request $request, $id)
+    #[Route(path: '/membernotification/read/{id}', name: 'mnc_read')]
+    public function readAction(Request $request, string $id): Response
     {
         $this->framework->initialize();
 

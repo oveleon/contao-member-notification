@@ -1,10 +1,6 @@
 <?php
 
-/*
- * This file is part of Oveleon ContaoMemberNotification.
- *
- * (c) https://www.oveleon.de/
- */
+declare(strict_types=1);
 
 namespace Oveleon\ContaoMemberNotification;
 
@@ -19,32 +15,29 @@ use Contao\Pagination;
 use Contao\System;
 
 /**
- * Class ModuleMemberNotification
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
+ * Class ModuleMemberNotification.
  */
 class ModuleMemberNotification extends Module
 {
+    /**
+     * Template.
+     * @var string
+     */
+    protected $strTemplate = 'mod_memberNotification';
 
-	/**
-	 * Template
-	 * @var string
-	 */
-	protected $strTemplate = 'mod_memberNotification';
-
-	/**
-	 * Return a wildcard in the back end
-	 *
-	 * @return string
-	 */
-	public function generate()
-	{
+    /**
+     * Return a wildcard in the back end.
+     *
+     * @return string
+     */
+    #[\Override]
+    public function generate()
+    {
         $request = System::getContainer()->get('request_stack')->getCurrentRequest();
 
-        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request))
-        {
+        if ($request && System::getContainer()->get('contao.routing.scope_matcher')->isBackendRequest($request)) {
             $objTemplate = new BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . mb_strtoupper($GLOBALS['TL_LANG']['FMD']['memberNotification'][0], 'UTF-8') . ' ###';
+            $objTemplate->wildcard = '### ' . ($GLOBALS['TL_LANG']['FMD']['memberNotification'][0] ?? '') . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;
@@ -55,46 +48,37 @@ class ModuleMemberNotification extends Module
 
         System::loadLanguageFile('tl_member_notification');
 
-		return parent::generate();
-	}
+        return parent::generate();
+    }
 
-	/**
-	 * Generate the module
-	 */
-	protected function compile()
-	{
-        $this->Template->message          = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
-        $this->Template->labelMarkAsRead  = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
+    /**
+     * Generate the module.
+     */
+    protected function compile(): void
+    {
+        $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['emptyMessage'];
+        $this->Template->labelMarkAsRead = $GLOBALS['TL_LANG']['tl_member_notification']['markAsRead'];
 
-        if (!System::getContainer()->get('contao.security.token_checker')->hasFrontendUser())
-        {
+        if (!System::getContainer()->get('contao.security.token_checker')->hasFrontendUser()) {
             $this->Template->message = $GLOBALS['TL_LANG']['tl_member_notification']['loginRequired'];
+
             return;
         }
 
         $this->import(FrontendUser::class, 'User');
 
-        $limit  = null;
+        $limit = null;
         $offset = 0;
 
-        if ($this->numberOfItems > 0)
-        {
+        if ($this->numberOfItems > 0) {
             $limit = $this->numberOfItems;
         }
 
-        switch($this->notificationMode)
-        {
-            case 'read':
-                $strRead = 1;
-                break;
-
-            case 'unread':
-                $strRead = 0;
-                break;
-
-            default:
-                $strRead = null;
-        }
+        $strRead = match ($this->notificationMode) {
+            'read' => 1,
+            'unread' => 0,
+            default => null,
+        };
 
         $objNotifications = null;
 
@@ -102,32 +86,27 @@ class ModuleMemberNotification extends Module
 
         $intTotal = MemberNotificationModel::countByMember($this->User->id, $strRead);
 
-        if ($intTotal < 1)
-        {
+        if ($intTotal < 1) {
             return;
         }
 
-        if ($this->perPage > 0 && (!isset($limit) || $this->numberOfItems > $this->perPage))
-        {
+        if ($this->perPage > 0 && (!isset($limit) || $this->numberOfItems > $this->perPage)) {
             // Adjust the overall limit
-            if (isset($limit))
-            {
+            if (isset($limit)) {
                 $intTotal = min($limit, $intTotal);
             }
 
-            $id   = 'page_n' . $this->id;
+            $id = 'page_n' . $this->id;
             $page = Input::get($id) ?? 1;
 
-            if ($page < 1 || $page > max(ceil($intTotal/$this->perPage), 1))
-            {
+            if ($page < 1 || $page > max(ceil($intTotal / $this->perPage), 1)) {
                 throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
             }
 
-            $limit   = $this->perPage;
+            $limit = $this->perPage;
             $offset += (max($page, 1) - 1) * $this->perPage;
 
-            if ($offset + $limit > $intTotal)
-            {
+            if ($offset + $limit > $intTotal) {
                 $limit = $intTotal - $offset;
             }
 
@@ -137,28 +116,23 @@ class ModuleMemberNotification extends Module
         }
 
         // HOOK: add custom parse logic
-        if (isset($GLOBALS['TL_HOOKS']['beforeParseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['beforeParseMemberNotification']))
-        {
-            foreach ($GLOBALS['TL_HOOKS']['beforeParseMemberNotification'] as $callback)
-            {
+        if (isset($GLOBALS['TL_HOOKS']['beforeParseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['beforeParseMemberNotification'])) {
+            foreach ($GLOBALS['TL_HOOKS']['beforeParseMemberNotification'] as $callback) {
                 $this->import($callback[0]);
                 $objNotifications = $this->{$callback[0]}->{$callback[1]}($strRead, $this);
             }
         }
 
-        if (null === $objNotifications)
-        {
+        if ($objNotifications === null) {
             $arrOptions = [
-                'order' => 'tstamp ' . $this->notificationSorting
+                'order' => 'tstamp ' . $this->notificationSorting,
             ];
 
-            if (null !== $limit)
-            {
+            if ($limit !== null) {
                 $arrOptions['limit'] = $limit;
             }
 
-            if ($offset > 0)
-            {
+            if ($offset > 0) {
                 $arrOptions['offset'] = $offset;
             }
 
@@ -167,36 +141,32 @@ class ModuleMemberNotification extends Module
 
         $arrNotification = [];
 
-        if (null !== $objNotifications)
-        {
-            while ($objNotifications->next())
-            {
+        if ($objNotifications !== null) {
+            while ($objNotifications->next()) {
                 $objNotification = new \stdClass();
 
-                $objNotification->id       = $objNotifications->id;
-                $objNotification->tstamp   = $objNotifications->tstamp;
+                $objNotification->id = $objNotifications->id;
+                $objNotification->tstamp = $objNotifications->tstamp;
                 $objNotification->dateTime = date(Config::get('datimFormat'), (int) $objNotifications->tstamp);
-                $objNotification->title    = $objNotifications->title;
-                $objNotification->teaser   = $objNotifications->teaser;
-                $objNotification->jumpTo   = $objNotifications->jumpTo;
-                $objNotification->read     = $objNotifications->invisible;
+                $objNotification->title = $objNotifications->title;
+                $objNotification->teaser = $objNotifications->teaser;
+                $objNotification->jumpTo = $objNotifications->jumpTo;
+                $objNotification->read = $objNotifications->invisible;
 
                 $arrNotification[] = $objNotification;
             }
         }
 
-        $this->Template->amount           = count($arrNotification);
-        $this->Template->hasNotifications = !!$this->Template->amount;
-        $this->Template->notifications    = $arrNotification;
+        $this->Template->amount = \count($arrNotification);
+        $this->Template->hasNotifications = (bool) $this->Template->amount;
+        $this->Template->notifications = $arrNotification;
 
         // HOOK: add custom parse logic
-        if (isset($GLOBALS['TL_HOOKS']['parseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['parseMemberNotification']))
-        {
-            foreach ($GLOBALS['TL_HOOKS']['parseMemberNotification'] as $callback)
-            {
+        if (isset($GLOBALS['TL_HOOKS']['parseMemberNotification']) && \is_array($GLOBALS['TL_HOOKS']['parseMemberNotification'])) {
+            foreach ($GLOBALS['TL_HOOKS']['parseMemberNotification'] as $callback) {
                 $this->import($callback[0]);
                 $this->{$callback[0]}->{$callback[1]}($objNotifications, $this);
             }
         }
-	}
+    }
 }

@@ -1,9 +1,6 @@
 <?php
-/*
- * This file is part of Oveleon ContaoMemberNotification.
- *
- * (c) https://www.oveleon.de/
- */
+
+declare(strict_types=1);
 
 namespace Oveleon\ContaoMemberNotification;
 
@@ -11,16 +8,16 @@ use Contao\Model;
 use Contao\Model\Collection;
 
 /**
- * Reads and writes notifications
+ * Reads and writes notifications.
  *
- * @property integer $id
- * @property integer $pid
- * @property integer $tstamp
- * @property integer $readTstamp
- * @property string  $title
- * @property string  $teaser
- * @property string  $jumpTo
- * @property boolean $invisible
+ * @property int    $id
+ * @property int    $pid
+ * @property int    $tstamp
+ * @property int    $readTstamp
+ * @property string $title
+ * @property string $teaser
+ * @property string $jumpTo
+ * @property bool   $invisible
  *
  * @method static MemberNotificationModel|null findById($id, array $opt=array())
  * @method static MemberNotificationModel|null findByPk($id, array $opt=array())
@@ -52,26 +49,22 @@ use Contao\Model\Collection;
  */
 class MemberNotificationModel extends Model
 {
-
     /**
-     * Table name
+     * Table name.
      * @var string
      */
     protected static $strTable = 'tl_member_notification';
 
     /**
-     * Find notification by their member and read-status
+     * Find notification by their member and read-status.
      *
-     * @param numeric $memberId
-     * @param null    $read
-     * @param array   $arrOptions An optional options array
-     *
+     * @param  numeric                      $memberId
+     * @param  array                        $arrOptions An optional options array
      * @return MemberNotificationModel|null The model or null if there is no notification
      */
-    public static function findByMember($memberId, $read=null, array $arrOptions=array())
+    public static function findByMember($memberId, $read = null, array $arrOptions = [])
     {
-        if(null === $read)
-        {
+        if ($read === null) {
             return static::findBy(['pid=?'], [$memberId], $arrOptions);
         }
 
@@ -79,25 +72,21 @@ class MemberNotificationModel extends Model
     }
 
     /**
-     * Counts notifications by member and read-status
+     * Counts notifications by member and read-status.
      *
-     * @param numeric $memberId
-     * @param null    $read
-     * @param array   $arrOptions An optional options array
-     *
+     * @param  numeric  $memberId
      * @return int|null The model or null if there is no notification
      */
-    public static function countByMember($memberId, $read=null)
+    public static function countByMember($memberId, $read = null)
     {
-        if (null === $read)
-        {
+        if ($read === null) {
             return static::countBy(['pid=?'], [$memberId]);
         }
 
         return static::countBy(['invisible=?', 'pid=?'], [$read, $memberId]);
     }
 
-    public static function add($memberId, $title, $teaser, $jumpTo='')
+    public static function add($memberId, $title, $teaser, $jumpTo = ''): void
     {
         $objNotification = new static();
 

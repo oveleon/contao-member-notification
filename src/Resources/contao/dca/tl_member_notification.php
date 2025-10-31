@@ -1,193 +1,168 @@
 <?php
 
-/*
- * This file is part of Oveleon ContaoMemberNotification.
- *
- * (c) https://www.oveleon.de/
- */
+declare(strict_types=1);
 
-$GLOBALS['TL_DCA']['tl_member_notification'] = array
-(
+use Contao\Backend;
+use Contao\BackendUser;
+use Contao\Config;
+use Contao\CoreBundle\Exception\AccessDeniedException;
+use Contao\DataContainer;
+use Contao\DC_Table;
+
+$GLOBALS['TL_DCA']['tl_member_notification'] = [
     // Config
-    'config' => array
-    (
-        'dataContainer'               => 'Table',
-        'ptable'                      => 'tl_member',
-        'switchToEdit'                => true,
-        'onload_callback' => array
-        (
-            array('tl_member_notification', 'checkPermission')
-        ),
-        'sql' => array
-        (
-            'keys' => array
-            (
-                'id' => 'primary'
-            )
-        )
-    ),
-
+    'config' => [
+        'dataContainer' => DC_Table::class,
+        'ptable' => 'tl_member',
+        'switchToEdit' => true,
+        'onload_callback' => [['tl_member_notification', 'checkPermission']],
+        'sql' => [
+            'keys' => [
+                'id' => 'primary',
+            ],
+        ],
+    ],
     // List
-    'list' => array
-    (
-        'sorting' => array
-        (
-            'mode'                    => 4,
-            'fields'                  => array('title'),
-            'panelLayout'             => 'filter;search,limit',
-            'headerFields'            => array('firstname', 'lastname'),
-            'child_record_callback'   => array('tl_member_notification', 'listNotification')
-        ),
-        'global_operations' => array
-        (
-            'all' => array
-            (
-                'href'                => 'act=select',
-                'class'               => 'header_edit_all',
-                'attributes'          => 'onclick="Backend.getScrollOffset()" accesskey="e"'
-            )
-        ),
-        'operations' => array
-        (
-            'edit' => array
-            (
-                'href'                => 'table=tl_member_notification&amp;act=edit',
-                'icon'                => 'edit.svg'
-            ),
-            'delete' => array
-            (
-                'href'                => 'act=delete',
-                'icon'                => 'delete.svg',
-                'attributes'          => 'onclick="if(!confirm(\'' . ($GLOBALS['TL_LANG']['MSC']['deleteConfirm'] ?? '') . '\'))return false;Backend.getScrollOffset()"'
-            ),
-            'show' => array
-            (
-                'href'                => 'act=show',
-                'icon'                => 'show.svg'
-            )
-        )
-    ),
-
+    'list' => [
+        'sorting' => [
+            'mode' => DataContainer::MODE_PARENT,
+            'fields' => ['title'],
+            'panelLayout' => 'filter;search,limit',
+            'headerFields' => ['firstname', 'lastname'],
+            'child_record_callback' => ['tl_member_notification', 'listNotification'],
+        ],
+        'global_operations' => [
+            'all' => [
+                'href' => 'act=select',
+                'class' => 'header_edit_all',
+                'attributes' => 'onclick="Backend.getScrollOffset()" accesskey="e"',
+            ],
+        ],
+        'operations' => [
+            'edit',
+            'delete',
+            'show',
+        ],
+    ],
     // Palettes
-    'palettes' => array
-    (
-        'default'                     => '{title_legend},title,teaser;jumpTo;invisible'
-    ),
-
+    'palettes' => [
+        'default' => '{title_legend},title,teaser;jumpTo;invisible',
+    ],
     // Fields
-    'fields' => array
-    (
-        'id' => array
-        (
-            'sql'                     => "int(10) unsigned NOT NULL auto_increment"
-        ),
-        'pid' => array
-        (
-            'foreignKey'              => 'tl_member.id',
-            'sql'                     => "int(10) unsigned NOT NULL default 0",
-            'relation'                => array('type'=>'belongsTo', 'load'=>'lazy')
-        ),
-        'tstamp' => array
-        (
-            'sql'                     => "int(10) unsigned NOT NULL default 0"
-        ),
-        'readTstamp' => array
-        (
-            'sql'                     => "int(10) unsigned NOT NULL default 0"
-        ),
-        'title' => array
-        (
-            'inputType'               => 'text',
-            'exclude'                 => true,
-            'search'                  => true,
-            'flag'                    => 1,
-            'eval'                    => array('mandatory'=>true, 'maxlength'=>64, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(64) NULL"
-        ),
-        'teaser' => array
-        (
-            'exclude'                 => true,
-            'inputType'               => 'textarea',
-            'search'                  => true,
-            'eval'                    => array('rte'=>'tinyMCE', 'tl_class'=>'clr'),
-            'sql'                     => "text NULL"
-        ),
-        'jumpTo' => array
-        (
-            'exclude'                 => true,
-            'inputType'               => 'text',
-            'eval'                    => array('rgxp'=>'url', 'decodeEntities'=>true, 'maxlength'=>255, 'dcaPicker'=>true, 'addWizardClass'=>false, 'tl_class'=>'w50'),
-            'sql'                     => "varchar(255) NOT NULL default ''"
-        ),
-        'invisible' => array
-        (
-            'exclude'                 => true,
-            'filter'                  => true,
-            'inputType'               => 'checkbox',
-            'eval'                    => array('tl_class'=>'w50', 'doNotCopy'=>true),
+    'fields' => [
+        'id' => [
+            'sql' => 'int(10) unsigned NOT NULL auto_increment',
+        ],
+        'pid' => [
+            'foreignKey' => 'tl_member.id',
+            'sql' => 'int(10) unsigned NOT NULL default 0',
+            'relation' => [
+                'type' => 'belongsTo',
+                'load' => 'lazy',
+            ],
+        ],
+        'tstamp' => [
+            'sql' => 'int(10) unsigned NOT NULL default 0',
+        ],
+        'readTstamp' => [
+            'sql' => 'int(10) unsigned NOT NULL default 0',
+        ],
+        'title' => [
+            'inputType' => 'text',
+            'exclude' => true,
+            'search' => true,
+            'flag' => DataContainer::SORT_INITIAL_LETTER_ASC,
+            'eval' => [
+                'mandatory' => true,
+                'maxlength' => 64,
+                'tl_class' => 'w50',
+            ],
+            'sql' => 'varchar(64) NULL',
+        ],
+        'teaser' => [
+            'exclude' => true,
+            'inputType' => 'textarea',
+            'search' => true,
+            'eval' => [
+                'rte' => 'tinyMCE',
+                'tl_class' => 'clr',
+            ],
+            'sql' => 'text NULL',
+        ],
+        'jumpTo' => [
+            'exclude' => true,
+            'inputType' => 'text',
+            'eval' => [
+                'rgxp' => 'url',
+                'decodeEntities' => true,
+                'maxlength' => 255,
+                'dcaPicker' => true,
+                'addWizardClass' => false,
+                'tl_class' => 'w50',
+            ],
+            'sql' => "varchar(255) NOT NULL default ''",
+        ],
+        'invisible' => [
+            'exclude' => true,
+            'filter' => true,
+            'inputType' => 'checkbox',
+            'eval' => [
+                'tl_class' => 'w50',
+                'doNotCopy' => true,
+            ],
             'sql' => [
                 'type' => 'boolean',
                 'default' => false,
             ],
-        )
-    )
-);
+        ],
+    ],
+];
 
 /**
  * Provide miscellaneous methods that are used by the data configuration array.
- *
- * @author Daniele Sciannimanica <https://github.com/doishub>
  */
-class tl_member_notification extends Contao\Backend
+class tl_member_notification extends Backend
 {
     /**
-     * Import the back end user object
+     * Import the back end user object.
      */
     public function __construct()
     {
         parent::__construct();
-        $this->import('Contao\BackendUser', 'User');
+        $this->import(BackendUser::class, 'User');
     }
 
     /**
-     * Check permissions to edit the table
+     * Check permissions to edit the table.
      *
-     * @throws Contao\CoreBundle\Exception\AccessDeniedException
+     * @throws AccessDeniedException
      */
-    public function checkPermission()
+    public function checkPermission(): void
     {
-        if ($this->User->isAdmin)
-        {
+        if ($this->User->isAdmin) {
             return;
         }
 
-        if (!$this->User->hasAccess('notification', 'member'))
-        {
-            throw new Contao\CoreBundle\Exception\AccessDeniedException('Not enough permissions to access the member notification module.');
+        if (!$this->User->hasAccess('notification', 'member')) {
+            throw new AccessDeniedException('Not enough permissions to access the member notification module.');
         }
     }
 
     /**
-     * List a notification
-     *
-     * @param array $row
-     *
-     * @return string
+     * List a notification.
      */
-    public function listNotification($row)
+    public function listNotification(array $row): string
     {
         $strStatus = '<span style="display:inline-block;border-radius:10px;width:10px;height:10px;margin-right:10px;background-color:%s;"></span>';
 
-        $color     = 'orange';
-        $time      = null;
+        $color = 'orange';
+        $time = null;
 
-        if ($row['invisible'])
-        {
+        if ($row['invisible']) {
             $color = 'green';
-            $time  = $row['readTstamp'];
+            $time = $row['readTstamp'];
         }
 
-        return '<div class="tl_content_left">' . sprintf($strStatus, $color) . $row['title'] . ($time ? '<span style="color:#999;padding-left:8px">' . date(\Contao\Config::get('datimFormat') ?: 'Y-m-d', $time) . '</span>' : '') . "</div>\n";
+        return '<div class="tl_content_left">' . sprintf($strStatus, $color) . $row['title'] . ($time ? '<span style="color:#999;padding-left:8px">' . date(Config::get('datimFormat') ?: 'Y-m-d', $time) . '</span>' : '') . "</div>\n";
     }
-
 }
