@@ -1,7 +1,3 @@
-> [!NOTE]  
-> This bundle is no longer maintained and will most likely be merged into
-> [contao-member-extension-bundle](https://github.com/oveleon/contao-member-extension-bundle) for ongoing Contao 5 support. 
-
 # Contao Member Notification
 This extension allows to add notifications for members to inform them about certain activities.
 
@@ -60,14 +56,14 @@ Further peculiarities can be caught by the event `mnc-count`. This event is alwa
 ```js
 window.addEventListener('mnc-count', function (e) {
   console.log(e.detail);
-  
+
   // Output:
   // {
   //   element: DOMElement,
   //   counter: DOMElement,
   //   currentCount: Number
   // }
-    
+
 }, false);
 ```
 
